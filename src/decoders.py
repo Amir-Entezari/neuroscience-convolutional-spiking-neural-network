@@ -33,3 +33,39 @@ class Latency2Intensity(torch.nn.Module):
 
         return img
 
+
+class PoissonDecoder(torch.nn.Module):
+    """
+    Decodes spike trains encoded by a Poisson encoder into original pixel values.
+
+    The decoder estimates the original pixel values by calculating the average rate of spikes
+    over a given time window, adjusted by the scaling factor used during encoding.
+
+    Args:
+        time_window (int): The interval of the coding used in the encoder.
+        ratio (float): The scale factor for the probability of spiking used in the encoder.
+    """
+
+    def __init__(self, time_window, ratio):
+        super().__init__()
+        self.time_window = time_window
+        self.ratio = ratio
+
+    def __call__(self, spikes):
+        if type(spikes) is tuple:
+            return tuple([self(sub_spikes) for sub_spikes in spikes])
+
+        original_shape = spikes.shape[1:]
+        spikes_flat = spikes.view(self.time_window, -1)
+
+        # Calculate the average number of spikes over the time window
+        spike_counts = spikes_flat.sum(dim=0)
+
+        # Estimate the firing rate (average spikes per time step)
+        firing_rate = spike_counts.float() / self.time_window
+
+        # Reverse the scaling applied during encoding
+        estimated_values = firing_rate / self.ratio
+
+        # Reshape back to the original input shape
+        return estimated_values.view(original_shape)
