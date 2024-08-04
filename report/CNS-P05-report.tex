@@ -1,0 +1,110 @@
+\documentclass{report}
+
+\usepackage[textwidth=16cm, textheight=24cm]{geometry}
+% Packages for special characters and symbols
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath, amssymb, amsthm}
+
+% Package for hyperlinks
+\usepackage{hyperref}
+
+% Package for graphics
+\usepackage{graphicx, caption}
+\usepackage{fancyhdr} % For fancy headers and footers
+\usepackage[export]{adjustbox}
+\usepackage{subcaption}
+\usepackage{multicol}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{dirtree}
+
+% Package for better tables
+\usepackage{booktabs}
+\usepackage{xepersian}
+
+
+
+
+
+% Page dimensions and margin settings
+\geometry{
+  top=0.5cm,
+%   left=3cm,
+  headheight=40pt, % Adjust the header height
+  headsep=10pt, % Separation between header and text
+  includeheadfoot
+}
+
+% Path to your logo
+\newcommand{\headerlogo}{images/Logo.png}
+
+% Header and footer configuration
+\pagestyle{fancy}
+\fancyhf{} % Clear header and footer
+\fancyhead[R]{\includegraphics[height=40pt]{\headerlogo}} % Logo on the Left of the header
+\fancyfoot[C]{\thepage} % Page number at the center of the footer
+
+% Ensure the header and footer lines are removed
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+
+
+
+
+
+% \setlatintextfont{Times New Roman}
+% \settextfont{Yas.ttf}
+\settextfont[
+BoldFont=Yas Bd.TTF]{Yas.TTF}
+% Set the title, author, and date
+\title{گزارش پروژه پنجم علوم اعصاب محاسباتی}
+\author{امیرحسین انتظاری}
+\date{\today}
+
+% Begin document
+\begin{document}
+\begin{figure}
+    \centering \includegraphics[height=3cm]{images/Logo.png}
+\end{figure}
+% Redefine chaptername
+\renewcommand{\chaptername}{بخش}
+\newpage
+% Create the title
+\maketitle
+\newpage
+% Create a table of contents
+\tableofcontents
+% Separate the table of contents from the next content with a new page
+% \clearpage
+
+\newgeometry{textwidth=13cm,textheight=22cm}
+    \begin{abstract}
+        هدف از این پروژه بررسی و شبیه‌سازی پردازش تصاویر در نواحی اولیه قشر بینایی است. این پژوهش شامل مدلسازی نحوه پردازش و تفسیر محرک‌های بصری توسط سیستم بینایی انسان می‌شود. در این پروژه، از فیلترهای تفاضل گاوسی 
+        (DoG) 
+        و گبور استفاده شده است تا مکانیسم‌های پردازشی شبکیه و قشر بینایی 
+        V1 
+        را شبیه‌سازی کنند.
+
+        فیلترهای 
+        DoG \footnote{\lr{Difference of Gaussian}}
+        به تقلید از میدان‌های گیرنده سلول‌های گانگلیونی شبکیه و لوب زانویی جانبی 
+        (LGN \footnote{\lr{Lateral geniculate nucleus}}) 
+        به منظور تشخیص لبه‌ها و کنتراست محلی استفاده می‌شوند. فیلترهای گبور نیز به دلیل توانایی‌شان در شبیه‌سازی میدان‌های گیرنده انتخابی جهت‌گیری در قشر بینایی اولیه (V1)، 
+        برای تحلیل لبه‌ها و بافت‌ها به کار رفته‌اند.
+        
+        همچنین، پروژه به بررسی کدگذاری عصبی ضربه‌ای 
+        (SNN\footnote{\lr{Spiking Neural Network}}) 
+        بر اساس خروجی فیلترها پرداخته و نتایج نشان داده‌اند که پیش‌پردازش با فیلترهای DoG و گبور می‌تواند ویژگی‌های بصری مهم را برجسته کند و بهبود‌هایی در کدگذاری و پردازش عصبی ایجاد کند.
+        \end{abstract}
+\restoregeometry
+
+\include{part1.tex}
+\newpage
+\include{part2.tex}
+\newpage
+% \include{part3.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% Bibliography section %%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{bibelography.tex}
+\end{document}
